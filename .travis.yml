@@ -16,11 +16,12 @@ jobs:
   - stage: Tests
     name: lint
     script:
-    - pycodestyle --max-line-length=120 --filename laundromat/*
+    - pip install pycodestyle
+    - pycodestyle --max-line-length=120 app.py
   - stage: Tests
     name: Unit Tests
     script:
-    - pip install -r equirements.txt
+    - pip install -r requirements.txt
     - python -m unittest discover -s ./tests -t ./tests
   - stage: Deploy Staging
     name: Deploy to Staging
