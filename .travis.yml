@@ -33,11 +33,12 @@ jobs:
     - provider: s3
       access_key_id: AKIAI3FGPGMK3EREJJTQ
       secret_access_key:
-        secure: ZjsDm9qj6TDS+0qIYJn/H9GK3XO79aw/su/dGLRzZzrOEXpufoeufQLMCJW/If4P22/bMejjyYfI5dNxODajiSiwvczsMvS5FVn0FwsM96zx03FJWRqxNPlwuT7MnBCba7TVHe+AcyhIaPBh1P9Wgh7S4qDpEfAI9b6qvDiSWij/YPYpLiFqa/UGkTlEwGwy6JTzbPLRo5xA6pMJ+t8xExz3kGFrPu3jBhFdwmM9LkEu7VgF6JpX1hGxtUlSBI3XYXd1OUCZ5rbW/381dvpUw3by7/jpsyLZBwtrOyQ86CyU6Jt4R5inXFyNoIVm8QplaF23vuyUtlsI//t4F4RJwGwjp/X/xuTIqUN6nAOVjqLenfJZTsgzxANryvSJZjAURZWmgD73Qqlx6r7PuxKdHXNws+QVhJj9d4+10+HpA8VneTh74hJ03Q/qivttjCd8hOV8+fyneiBbo0pRiDFs9HeXBduB4BU9Kdc0vXRji1cmsqLrQpnCGG09ftTNp7M73szWEY2uoUggFU0HCrrWeUAsvZ5uKSm1q6AmtU1mD0Rnl/QccnrxuW/99PtjEK6m7YMCDZCqg1vjEeCmkTyHC7zI7b+lPc9hkEqJAxN+/dyK/d2BfFo67h/9Jy55C761B1yxLHm20jsJ9QDSxmTPzXG9/cN1d8GeFodBnmNT5kE=
+        secure: RcRkpyUhLTAe+avLAzpHpk752RHicuA3hhZ+gS9IDC3ksS4Jn0J2W38chQZNfBKdzQd8rvZg0pgX+hM3+Lf2sfhZdT/LTG/xX5zQZrQqMJOq50jD6IxGnjhyZSqhU7YBjPA+3Xtg23IMuXfW4Cf1fWbHo2J/JRGBMhSC3zdKNBusQuxHIPKFOSo17Wx7YxQDf2cVOtGP+yGGi7bux7/e5sdLaBL02+/bZjx5sjoE01cmjoyV3JPF/JRtmdzNio9LYu/katFiD8ODS4H+VSkjagrE5AgxuNXsX0Mnyo4rrKH0QkNZZFQfUDafQDLIw4QouHTTcMgqBv3/Z4zpcoAmlaiBG9TATzbJbK28bBVeixDf0ru5/hXBgCDw6ndMI+b8qGFZMSWs5yo/vyqzjPIrCZZ56EzGQ0ohxtETp3MJegqXMc+n10t9NEWKU+1nQtdmw0zRiCir7ChDZXilui3vlHBoZj+PXNq4c2oFydK1KY0t/klnwdpaanOzlmcyjXzIKQa88Ef3acW8h3XaCmu5xGEn8prNwRrklKkP2c09+/WHh7S7Hu3n4+GG9H+GFgm5+SnFE5u8Uc0Djz3GnB9zxOIWT0niZVpyyTdsMCm4PdPIxgV0RlM4AHogLbk1QiG57kfbNG2p6XbSbsCoiFZHXnKMeWyvNZAfMdUlOvUl9xA=
       bucket: eu-west-1-stg-streamr-vault
       upload-dir: lambda/memory-widget-updater
       local-dir: "$TRAVIS_BUILD_DIR/upload"
       acl: private
       region: eu-west-1
       skip_cleanup: true
+
 
