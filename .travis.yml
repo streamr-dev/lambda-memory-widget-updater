@@ -1,0 +1,42 @@
+language: python
+python:
+- '3.6'
+sudo: true
+branches:
+  only:
+  - master
+  - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
+install:
+- pip install --upgrade pip
+- sudo apt-get remove python-google-compute-engine
+- pip install -r requirements.txt
+- pip install --upgrade pycodestyle
+jobs:
+  include:
+  - stage: Tests
+    name: lint
+    script:
+    - pycodestyle --max-line-length=120 --filename laundromat/*
+  - stage: Tests
+    name: Unit Tests
+    script:
+    - pip install -r equirements.txt
+    - python -m unittest discover -s ./tests -t ./tests
+  - stage: Deploy Staging
+    name: Deploy to Staging
+    script:
+    - zip -r latest.zip app.py
+    - mkdir upload
+    - mv latest.zip upload
+    deploy:
+    - provider: s3
+      access_key_id: AKIAI3FGPGMK3EREJJTQ
+      secret_access_key:
+        secure: ZjsDm9qj6TDS+0qIYJn/H9GK3XO79aw/su/dGLRzZzrOEXpufoeufQLMCJW/If4P22/bMejjyYfI5dNxODajiSiwvczsMvS5FVn0FwsM96zx03FJWRqxNPlwuT7MnBCba7TVHe+AcyhIaPBh1P9Wgh7S4qDpEfAI9b6qvDiSWij/YPYpLiFqa/UGkTlEwGwy6JTzbPLRo5xA6pMJ+t8xExz3kGFrPu3jBhFdwmM9LkEu7VgF6JpX1hGxtUlSBI3XYXd1OUCZ5rbW/381dvpUw3by7/jpsyLZBwtrOyQ86CyU6Jt4R5inXFyNoIVm8QplaF23vuyUtlsI//t4F4RJwGwjp/X/xuTIqUN6nAOVjqLenfJZTsgzxANryvSJZjAURZWmgD73Qqlx6r7PuxKdHXNws+QVhJj9d4+10+HpA8VneTh74hJ03Q/qivttjCd8hOV8+fyneiBbo0pRiDFs9HeXBduB4BU9Kdc0vXRji1cmsqLrQpnCGG09ftTNp7M73szWEY2uoUggFU0HCrrWeUAsvZ5uKSm1q6AmtU1mD0Rnl/QccnrxuW/99PtjEK6m7YMCDZCqg1vjEeCmkTyHC7zI7b+lPc9hkEqJAxN+/dyK/d2BfFo67h/9Jy55C761B1yxLHm20jsJ9QDSxmTPzXG9/cN1d8GeFodBnmNT5kE=
+      bucket: eu-west-1-stg-streamr-vault
+      upload-dir: lambda/memory-widget-updater
+      local-dir: "$TRAVIS_BUILD_DIR/upload"
+      acl: private
+      region: eu-west-1
+      skip_cleanup: true
+
