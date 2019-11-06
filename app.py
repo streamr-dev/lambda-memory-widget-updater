@@ -86,7 +86,6 @@ def get_instance_ips(asg_name) -> list:
     for instance in instances:
         ids.append(instance.get("InstanceId"))
 
-
     response = CLIENT_EC2.describe_instances(InstanceIds=ids)
     for instance in response.get("Reservations"):
         ips.append(instance.get("Instances")[0].get("PrivateIpAddress"))
@@ -99,7 +98,7 @@ def lambda_handler(event, context):
     authenticate_ec2("eu-west-1")
     authenticate_cw("eu-west-1")
     dashoard_name = os.getenv('DASHBOARD_NAME')  # None
-    asg_name =os.getenv('ASG_NAME')
+    asg_name = os.getenv('ASG_NAME')
 
     logging.basicConfig(format='%(asctime)s-%(name)s-%(levelname)s: %(message)s',
                         level=logging.INFO)
