@@ -40,5 +40,15 @@ jobs:
       acl: private
       region: eu-west-1
       skip_cleanup: true
-
-
+    - provider: lambda
+      access_key_id: AKIAI3FGPGMK3EREJJTQ
+      secret_access_key:
+        secure: RcRkpyUhLTAe+avLAzpHpk752RHicuA3hhZ+gS9IDC3ksS4Jn0J2W38chQZNfBKdzQd8rvZg0pgX+hM3+Lf2sfhZdT/LTG/xX5zQZrQqMJOq50jD6IxGnjhyZSqhU7YBjPA+3Xtg23IMuXfW4Cf1fWbHo2J/JRGBMhSC3zdKNBusQuxHIPKFOSo17Wx7YxQDf2cVOtGP+yGGi7bux7/e5sdLaBL02+/bZjx5sjoE01cmjoyV3JPF/JRtmdzNio9LYu/katFiD8ODS4H+VSkjagrE5AgxuNXsX0Mnyo4rrKH0QkNZZFQfUDafQDLIw4QouHTTcMgqBv3/Z4zpcoAmlaiBG9TATzbJbK28bBVeixDf0ru5/hXBgCDw6ndMI+b8qGFZMSWs5yo/vyqzjPIrCZZ56EzGQ0ohxtETp3MJegqXMc+n10t9NEWKU+1nQtdmw0zRiCir7ChDZXilui3vlHBoZj+PXNq4c2oFydK1KY0t/klnwdpaanOzlmcyjXzIKQa88Ef3acW8h3XaCmu5xGEn8prNwRrklKkP2c09+/WHh7S7Hu3n4+GG9H+GFgm5+SnFE5u8Uc0Djz3GnB9zxOIWT0niZVpyyTdsMCm4PdPIxgV0RlM4AHogLbk1QiG57kfbNG2p6XbSbsCoiFZHXnKMeWyvNZAfMdUlOvUl9xA=
+      function_name: eu-west-1-stg-memory-widget-updater
+      region: eu-west-1
+      handler_name: app.lambda_handler
+      runtime: python3.7
+      role: "arn:aws:iam::$STG_ACCOUNT_ID:role/eu-west-1-stg-memory-widget-updater-role"
+env:
+  global:
+    secure: edLz276bMG/JH5sqcCfaDUs5Evq6Cd+lShMfYtldHX4zEDk0xC0xBX5dFQeRvek0Y9W9vPZQMmr+Zos2G+Yj/+B2e1VJ3xxfYtd6U6NZaD4itjkRDHEl8rW+9j7GFQ1ScSYrgjfxN6/JY3y0D0m8ExxLC7g4BRIAQ7vby1bfaVkUuHhUG45DGT83bNU2ngWLOp5/sKabvOddGE3GJXh+bI7H5dRnsWld/Im6WOWuTmVTA0QR3YG0jrkxQ6tYnBEo5GwNS3tun32r0Z6MDhV6KHannisfXPQ4T266+aMPSulZB1H24h+LrlxZ7cJjRy8lrWmh4e+NAlGdkSzVzZgjEKp659nrS5Lh9oTEXuuo6l1rDQqvkN72UFD7BkhBDVM2sG85TNQPGoQ3Un3y+4rQN/sOVQoWvTAaNhbPuV/0av8IQIa1WzF0KJRXRvFHWK6LggoWnuKwMuiSHOE0ndUNhkw3IZjgmjqICFiniOjHdd9orr7HQqvSTeyhVllfUiHm03UbXkum5yvuQKAw2ElIiMEsq01tDUOzVv+TtyXnd2dylJcWtwqRvUHOuna16yZm7051LWlVSSdwcDb18KjH5RGDoC4o8JvDrgvpn+596VyDieq0knLnisp7r0TCq3gQCN+mBthfwc1WRr7cwaB3Rq3qkmHLgGfHf89jRcYRyKc=
