@@ -1,6 +1,6 @@
 import json
 from unittest import TestCase
-from app import authenticate_cw, get_dashboard, get_widget_position, get_metric, add_ips, get_namespace, \
+from index import authenticate_cw, get_dashboard, get_widget_position, get_metric, add_ips, get_namespace, \
     update_dashboard
 import boto3
 from moto import mock_ec2

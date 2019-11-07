@@ -8,7 +8,7 @@ import json
 CLIENT_CW = None
 CLIENT_ASG = None
 CLIENT_EC2 = None
-__version__ = "0.0.11"
+__version__ = "0.0.2"
 logger = logging.getLogger()
 
 

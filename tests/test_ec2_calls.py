@@ -1,5 +1,5 @@
 from unittest import TestCase
-from app import authenticate_asg, authenticate_ec2, get_instance_ips
+from index import authenticate_asg, authenticate_ec2, get_instance_ips
 import boto3
 from moto import mock_autoscaling, mock_ec2
 
