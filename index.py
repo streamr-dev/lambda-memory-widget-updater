@@ -113,10 +113,9 @@ def lambda_handler(event, context):
     push_dushboard(dashoard_name, dashboard)
     logging.info("Finished Memory Wideget Updater")
 
-    # TODO implement
     return {
         'statusCode': 200,
-        'body': json.dumps('Hello from Lambda!')
+        'body': json.dumps('Widget Updated')
     }
 
 
