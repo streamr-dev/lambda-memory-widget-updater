@@ -11,6 +11,11 @@ install:
 - sudo apt-get remove python-google-compute-engine
 - pip install -r requirements.txt
 - pip install --upgrade pycodestyle
+env:
+  global:
+  - secure: edLz276bMG/JH5sqcCfaDUs5Evq6Cd+lShMfYtldHX4zEDk0xC0xBX5dFQeRvek0Y9W9vPZQMmr+Zos2G+Yj/+B2e1VJ3xxfYtd6U6NZaD4itjkRDHEl8rW+9j7GFQ1ScSYrgjfxN6/JY3y0D0m8ExxLC7g4BRIAQ7vby1bfaVkUuHhUG45DGT83bNU2ngWLOp5/sKabvOddGE3GJXh+bI7H5dRnsWld/Im6WOWuTmVTA0QR3YG0jrkxQ6tYnBEo5GwNS3tun32r0Z6MDhV6KHannisfXPQ4T266+aMPSulZB1H24h+LrlxZ7cJjRy8lrWmh4e+NAlGdkSzVzZgjEKp659nrS5Lh9oTEXuuo6l1rDQqvkN72UFD7BkhBDVM2sG85TNQPGoQ3Un3y+4rQN/sOVQoWvTAaNhbPuV/0av8IQIa1WzF0KJRXRvFHWK6LggoWnuKwMuiSHOE0ndUNhkw3IZjgmjqICFiniOjHdd9orr7HQqvSTeyhVllfUiHm03UbXkum5yvuQKAw2ElIiMEsq01tDUOzVv+TtyXnd2dylJcWtwqRvUHOuna16yZm7051LWlVSSdwcDb18KjH5RGDoC4o8JvDrgvpn+596VyDieq0knLnisp7r0TCq3gQCN+mBthfwc1WRr7cwaB3Rq3qkmHLgGfHf89jRcYRyKc=
+import:
+- source: streamr-dev/travis-ci:aws-staging-secrets.yml@master
 jobs:
   include:
   - stage: Tests
@@ -31,9 +36,8 @@ jobs:
     - mv latest.zip upload
     deploy:
     - provider: s3
-      access_key_id: AKIAI3FGPGMK3EREJJTQ
-      secret_access_key:
-        secure: RcRkpyUhLTAe+avLAzpHpk752RHicuA3hhZ+gS9IDC3ksS4Jn0J2W38chQZNfBKdzQd8rvZg0pgX+hM3+Lf2sfhZdT/LTG/xX5zQZrQqMJOq50jD6IxGnjhyZSqhU7YBjPA+3Xtg23IMuXfW4Cf1fWbHo2J/JRGBMhSC3zdKNBusQuxHIPKFOSo17Wx7YxQDf2cVOtGP+yGGi7bux7/e5sdLaBL02+/bZjx5sjoE01cmjoyV3JPF/JRtmdzNio9LYu/katFiD8ODS4H+VSkjagrE5AgxuNXsX0Mnyo4rrKH0QkNZZFQfUDafQDLIw4QouHTTcMgqBv3/Z4zpcoAmlaiBG9TATzbJbK28bBVeixDf0ru5/hXBgCDw6ndMI+b8qGFZMSWs5yo/vyqzjPIrCZZ56EzGQ0ohxtETp3MJegqXMc+n10t9NEWKU+1nQtdmw0zRiCir7ChDZXilui3vlHBoZj+PXNq4c2oFydK1KY0t/klnwdpaanOzlmcyjXzIKQa88Ef3acW8h3XaCmu5xGEn8prNwRrklKkP2c09+/WHh7S7Hu3n4+GG9H+GFgm5+SnFE5u8Uc0Djz3GnB9zxOIWT0niZVpyyTdsMCm4PdPIxgV0RlM4AHogLbk1QiG57kfbNG2p6XbSbsCoiFZHXnKMeWyvNZAfMdUlOvUl9xA=
+      access_key_id: "$ACCESS_KEY_STG"
+      secret_access_key: "$SECRET_ACCESS_KEY_STG"
       bucket: eu-west-1-stg-streamr-vault
       upload-dir: lambda/memory-widget-updater
       local-dir: "$TRAVIS_BUILD_DIR/upload"
@@ -41,48 +45,10 @@ jobs:
       region: eu-west-1
       skip_cleanup: true
     - provider: lambda
-      access_key_id: AKIAI3FGPGMK3EREJJTQ
-      secret_access_key:
-        secure: RcRkpyUhLTAe+avLAzpHpk752RHicuA3hhZ+gS9IDC3ksS4Jn0J2W38chQZNfBKdzQd8rvZg0pgX+hM3+Lf2sfhZdT/LTG/xX5zQZrQqMJOq50jD6IxGnjhyZSqhU7YBjPA+3Xtg23IMuXfW4Cf1fWbHo2J/JRGBMhSC3zdKNBusQuxHIPKFOSo17Wx7YxQDf2cVOtGP+yGGi7bux7/e5sdLaBL02+/bZjx5sjoE01cmjoyV3JPF/JRtmdzNio9LYu/katFiD8ODS4H+VSkjagrE5AgxuNXsX0Mnyo4rrKH0QkNZZFQfUDafQDLIw4QouHTTcMgqBv3/Z4zpcoAmlaiBG9TATzbJbK28bBVeixDf0ru5/hXBgCDw6ndMI+b8qGFZMSWs5yo/vyqzjPIrCZZ56EzGQ0ohxtETp3MJegqXMc+n10t9NEWKU+1nQtdmw0zRiCir7ChDZXilui3vlHBoZj+PXNq4c2oFydK1KY0t/klnwdpaanOzlmcyjXzIKQa88Ef3acW8h3XaCmu5xGEn8prNwRrklKkP2c09+/WHh7S7Hu3n4+GG9H+GFgm5+SnFE5u8Uc0Djz3GnB9zxOIWT0niZVpyyTdsMCm4PdPIxgV0RlM4AHogLbk1QiG57kfbNG2p6XbSbsCoiFZHXnKMeWyvNZAfMdUlOvUl9xA=
+      access_key_id: "$ACCESS_KEY_STG"
+      secret_access_key: "$SECRET_ACCESS_KEY_STG"
       function_name: eu-west-1-stg-memory-widget-updater
       region: eu-west-1
       handler_name: lambda_handler
       runtime: python3.7
       role: arn:aws:iam::$STG_ACCOUNT_ID:role/eu-west-1-stg-memory-widget-updater-role
-  - stage: Deploy Lisboa
-    name: Deploy to Lisboa
-    if: NOT type IN (pull_request)
-    script:
-    - zip -r $TRAVIS_TAG.zip index.py
-    - zip -r latest.zip index.py
-    - mkdir upload
-    - mv $TRAVIS_TAG.zip upload
-    - mv latest.zip upload
-    deploy:
-    - provider: s3
-      access_key_id: AKIAJBAGP3WA5UXQ3AZQ
-      secret_access_key:
-        secure: sF/0LDTT3JJNW50DnBrO2hHAa6/7NOe+8h8AQdCP62Wqu9cC4k8DOrTxUPwH+EZXL3vwe5luEzNE361bmVXEGh0Xyny65TfXU9ht7MOegbeCcPrmRG+nCFF5QbyychHr658lFOgBGV8g3M+dSpc138/aY84vH2G6Hgsfi9wCFQlV8t90AhtwZowkSbzDuVH8BNLPrje5DKZbtNiUI+RAcmQZfSdB4w1roIpolWy6W4Xa2IEDWOv64sf/LEmisRmKe8HyZmP9r6kOvc9AJJJSj10qQZEwMsx3v1aqVHZhvrJ3tCxA9JQSWjvKZpQZL+OAAJvCZgJU+gYN6TW6HU7gCCrc4Z8Ul0/4z7HPjSL7PDx7rYsxcQk0WSeG97NO7ZYEg9meYEWt4OmX2xTKb+MJlIvmFRyVuPIu2KziPu4gxBhDuf4f1Fk5nx4lJn7JX4KUc2/qh7Vv7ir92wzFM0X7ZednIg8o8m/xX8DD85P4yy8Q08YudD8M3dYiCDunvf6Xev+VHiEFdEmwNru4Jf8sCgT5fbm9By1d2MOo8pPq6B/3F9tc1nf+xD6bKkBNbz2hVxAg98FmxxNhwb3mCKuzQ/TOAwBCa2D1TBYLDJxc0LAS3+Fp44GLB7QpzeVGTBOg8J5ZUMxkTUDyBsIeXi2gDh14bg4Wwh//0lMFjfUtI04=
-      bucket: eu-west-1-lx-streamr-vault
-      upload-dir: lambda/memory-widget-updater
-      local-dir: "$TRAVIS_BUILD_DIR/upload"
-      acl: private
-      region: eu-west-1
-      skip_cleanup: true
-      on:
-        tags: true
-    - provider: lambda
-      access_key_id: AKIAJBAGP3WA5UXQ3AZQ
-      secret_access_key:
-        secure: sF/0LDTT3JJNW50DnBrO2hHAa6/7NOe+8h8AQdCP62Wqu9cC4k8DOrTxUPwH+EZXL3vwe5luEzNE361bmVXEGh0Xyny65TfXU9ht7MOegbeCcPrmRG+nCFF5QbyychHr658lFOgBGV8g3M+dSpc138/aY84vH2G6Hgsfi9wCFQlV8t90AhtwZowkSbzDuVH8BNLPrje5DKZbtNiUI+RAcmQZfSdB4w1roIpolWy6W4Xa2IEDWOv64sf/LEmisRmKe8HyZmP9r6kOvc9AJJJSj10qQZEwMsx3v1aqVHZhvrJ3tCxA9JQSWjvKZpQZL+OAAJvCZgJU+gYN6TW6HU7gCCrc4Z8Ul0/4z7HPjSL7PDx7rYsxcQk0WSeG97NO7ZYEg9meYEWt4OmX2xTKb+MJlIvmFRyVuPIu2KziPu4gxBhDuf4f1Fk5nx4lJn7JX4KUc2/qh7Vv7ir92wzFM0X7ZednIg8o8m/xX8DD85P4yy8Q08YudD8M3dYiCDunvf6Xev+VHiEFdEmwNru4Jf8sCgT5fbm9By1d2MOo8pPq6B/3F9tc1nf+xD6bKkBNbz2hVxAg98FmxxNhwb3mCKuzQ/TOAwBCa2D1TBYLDJxc0LAS3+Fp44GLB7QpzeVGTBOg8J5ZUMxkTUDyBsIeXi2gDh14bg4Wwh//0lMFjfUtI04=
-      function_name: eu-west-1-lx-memory-widget-updater
-      region: eu-west-1
-      handler_name: lambda_handler
-      runtime: python3.7
-      role: arn:aws:iam::$LX_ACCOUNT_ID:role/eu-west-1-lx-memory-widget-updater-role
-      on:
-        tags: true
-env:
-  global:
-  - secure: edLz276bMG/JH5sqcCfaDUs5Evq6Cd+lShMfYtldHX4zEDk0xC0xBX5dFQeRvek0Y9W9vPZQMmr+Zos2G+Yj/+B2e1VJ3xxfYtd6U6NZaD4itjkRDHEl8rW+9j7GFQ1ScSYrgjfxN6/JY3y0D0m8ExxLC7g4BRIAQ7vby1bfaVkUuHhUG45DGT83bNU2ngWLOp5/sKabvOddGE3GJXh+bI7H5dRnsWld/Im6WOWuTmVTA0QR3YG0jrkxQ6tYnBEo5GwNS3tun32r0Z6MDhV6KHannisfXPQ4T266+aMPSulZB1H24h+LrlxZ7cJjRy8lrWmh4e+NAlGdkSzVzZgjEKp659nrS5Lh9oTEXuuo6l1rDQqvkN72UFD7BkhBDVM2sG85TNQPGoQ3Un3y+4rQN/sOVQoWvTAaNhbPuV/0av8IQIa1WzF0KJRXRvFHWK6LggoWnuKwMuiSHOE0ndUNhkw3IZjgmjqICFiniOjHdd9orr7HQqvSTeyhVllfUiHm03UbXkum5yvuQKAw2ElIiMEsq01tDUOzVv+TtyXnd2dylJcWtwqRvUHOuna16yZm7051LWlVSSdwcDb18KjH5RGDoC4o8JvDrgvpn+596VyDieq0knLnisp7r0TCq3gQCN+mBthfwc1WRr7cwaB3Rq3qkmHLgGfHf89jRcYRyKc=
-  - secure: I3FLJxQY4aWKEk12zTYTRM5wKYkA9FUiUJg/E53gZjqtMAvYrf/ZqJ0R08MeBi5eHME0BXa/84O+s1KwDcpyf72avIj89HwlhPI8U4l0T6DxBIcWoRtnrudwrYgSSmLlqbxFOdcV/mFwJ/1zR/pg9TZvYQ/kkakamhPYEuM5kw13gK9CsWPx6qL7bkYwPS53C6VZhIlwiYXxkJp20vr0iN2g6PzSzDgmSaAixhhHifAZwBwdQhfehQZA2WBZoGjv13rSVsyrWnmoqCT4efugF4j19l5vuwAy11OUd7RiJChbSwtTf/i2jxhfBHavW5UrhFAc2gvUcW3VekA4hE9JhYs1Mh6+Lyd+nNxd90ZrMwHRqV7+pRmw7/BPM+XHhk7geJjWc209LhisgdhLhw2GD9/vp9BrZsQ6H8pbyt77q4f8wmBMgigJNBLn2reqX7P9asD8EZRWVIgaug//0Kq6TJea8cQI94YhQzL7fK4aMQQP0L4YUIWw0O6lpcgzsozxI5vy4/bd3g/CIDF2pRJRofSixDIu8ujQxBZ1r2xZnhaL5lum2pMjrDbv7At/ij0HXMQAuCAOpFQvwHLXyQMyylwAh07yOkGB9K7bfQ7A6h+qcutKyaBvFkRZSKIfycItGJPz5CP73gzNhXAI+pdSXXT/V5J9Ah4JkCbJAEH5M00=
